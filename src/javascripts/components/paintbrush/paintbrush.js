@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import utilities from '../../helpers/utilities';
 
 const colors = ['pink', 'darkorchid', 'papayawhip', 'blanchedalmond', 'tomato', 'cornsilk'];
@@ -17,9 +18,22 @@ const printColorPicker = () => {
 </div>
 `;
     utilities.printToDom('color-picker', domString);
-    //
   }
 };
 
+const paintPixel = (event) => {
+  // event.target is how I know which element I clicked on
+  const pixel = $(event.target);
+  // everything that gives me the class of color choice and is clicked
+  const colorChoice = $('.color-choice:checked').val();
+  pixel.css('backgroundColor', colorChoice);
+};
 
-export default { printColorPicker };
+
+// attach event listeners
+const attachEvents = () => {
+  // on click for every element that has this selector 'td' or if I wanted to do a class ".classname"
+  $(document).on('click', 'td', paintPixel);
+};
+
+export default { printColorPicker, attachEvents };
